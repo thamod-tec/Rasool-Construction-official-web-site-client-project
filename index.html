@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasool Constructions</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <h1>Rasool Constructions</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="section">
+    <h2>Welcome to Rasool Constructions</h2>
+    <p>Your trusted partner in construction services.<br><br><br>
+      ඔබගේ ඉදිකිරිම් කටයුතු සදහා අවශ්‍ය අමුද්‍රව්‍ය අඩුම මිල අපෙන්. අමතන්න<b> 071- 0431000</b>
+
+    </p>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="section">
+    <h2>Our Work</h2>
+    <div class="gallery">
+      <img src="ivan-henao-2DK-CP_WAuw-unsplash.jpg" alt="Construction 1">
+      <img src="ivan-henao-04rZ7R1fKhY-unsplash.jpg" alt="Construction 2">
+      <img src="jeriden-villegas-niSnhfMjiMI-unsplash.jpg" alt="Construction 3">
+      <img src="nicolas-j-leclercq-WJg2bynUWOk-unsplash.jpg" alt="Construction 3">
+      <img src="troy-mortier-9qfH_EIzH6w-unsplash.jpg" alt="Construction 3">
+      <img src="troy-mortier-tq3ay5TKqzE-unsplash.jpg" alt="Construction 3">
+
+      
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <h2>About Us</h2>
+    <p>Rasool Constructions is a leading construction company specializing in high-quality construction services.<br><br>
+     Location -  Pinnagoda , Agalawatta, Sri Lanka <br><br>
+     E-Mail - ruweenkavishka7795@gmail.com<br><br>
+     Mobile Number - 071 043 1000
+    </p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status"></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Rasool Constructions. All rights reserved.</p>
+  </footer>
+
+ 
+   <!-- Firebase and Firestore CDN -->
+   <script type="module">
+    // Import Firebase and Firestore
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3vRKO3xn96mMDs6cFSQ4GA7UMlFOxDE4",
+      authDomain: "testfb-9c39f.firebaseapp.com",
+      projectId: "testfb-9c39f",
+      storageBucket: "testfb-9c39f.firebasestorage.app",
+      messagingSenderId: "894305420835",
+      appId: "1:894305420835:web:d12bfcdf50cdc4c1681396",
+      measurementId: "G-P1D0H67MEK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Handle form submission
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      try {
+        // Save data to Firestore
+        await addDoc(collection(db, "users"), {
+          name: name,
+          email: email,
+          message: message,
+          timestamp: new Date(),
+        });
+        alert("Message sent successfully!");
+        document.getElementById("contactForm").reset();
+      } catch (error) {
+        console.error("Error saving data: ", error);
+        document.getElementById("status").innerText = "Failed to send message. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>
